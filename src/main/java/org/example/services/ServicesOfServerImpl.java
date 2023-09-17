@@ -1,6 +1,8 @@
 package org.example.services;
 
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.example.domain.User;
 
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -10,6 +12,7 @@ import java.util.List;
 public class ServicesOfServerImpl implements ServicesOfServer {
     public static int PORT = 4444;
     public final List<Observer> clients = new LinkedList<>();
+    public final List<User> listOFUsers = new LinkedList<>();
 
     @SneakyThrows
     @Override
@@ -39,8 +42,8 @@ public class ServicesOfServerImpl implements ServicesOfServer {
 
     @Override
     public void notifyObservers(String message) {
-        for (Observer observer: clients){
-            observer.notifyMe(message);
+        for (Observer observerInList : clients) {
+            observerInList.notifyMe(message);
         }
     }
 }

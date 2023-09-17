@@ -6,16 +6,12 @@ import org.example.domain.User;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.LinkedList;
-import java.util.List;
 
 @RequiredArgsConstructor
 public class ClientRunnable implements Runnable, Observer {
     private final Socket socket;
     private User user;
     private final ServicesOfServerImpl services;
-//    private final List<User> listOfUsers = new LinkedList<>();
-
 
     @SneakyThrows
     @Override
@@ -29,7 +25,9 @@ public class ClientRunnable implements Runnable, Observer {
                 services.addObserver(this);
                 String messageFromClient;
                 while ((messageFromClient = readerFromClient.readLine()) != null) {
+                    services.removeObserver(this);
                     services.notifyObservers(user.getNickname() + ": " + messageFromClient);
+                    services.addObserver(this);
                 }
             }
         }
@@ -41,12 +39,27 @@ public class ClientRunnable implements Runnable, Observer {
         while ((authorizationMessage = readerFromClient.readLine()) != null) {
             if (authorizationMessage.startsWith("!auto!")) {
                 String nickname = authorizationMessage.substring(6);
-                user = new User(nickname);
+                user = new User(nickname); // Создание юзера и присваивание ему никнейма
+//                addUser(user);
                 return true;
             }
         }
         return false;
     }
+
+//    public void addUser(User user){
+//        services.listOFUsers.add(user);
+//    }
+//
+//    public void removeUser(User user){
+//        services.listOFUsers.remove(user);
+//    }
+//
+//    public void notifyUsers(String message){
+//        for (User user: services.listOFUsers){
+//
+//        }
+//    }
 
     @SneakyThrows
     @Override
