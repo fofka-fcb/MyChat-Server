@@ -2,6 +2,7 @@ package org.example.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.example.dao.UserDao;
 import org.example.domain.User;
 
 import java.io.*;
@@ -12,6 +13,7 @@ public class ClientRunnable implements Runnable, Observer {
     private final Socket socket;
     private User user;
     private final ServicesOfServerImpl services;
+    private final UserDao userDao;
 
     @SneakyThrows
     @Override
@@ -39,27 +41,13 @@ public class ClientRunnable implements Runnable, Observer {
         while ((authorizationMessage = readerFromClient.readLine()) != null) {
             if (authorizationMessage.startsWith("!auto!")) {
                 String nickname = authorizationMessage.substring(6);
-                user = new User(nickname); // Создание юзера и присваивание ему никнейма
-//                addUser(user);
+                //user = new User(nickname); // Создание юзера и присваивание ему никнейма
+                user = userDao.findByNickname(nickname); // Создание юзера после проверки существования его в базе данных
                 return true;
             }
         }
         return false;
     }
-
-//    public void addUser(User user){
-//        services.listOFUsers.add(user);
-//    }
-//
-//    public void removeUser(User user){
-//        services.listOFUsers.remove(user);
-//    }
-//
-//    public void notifyUsers(String message){
-//        for (User user: services.listOFUsers){
-//
-//        }
-//    }
 
     @SneakyThrows
     @Override
