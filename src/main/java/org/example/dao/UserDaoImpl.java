@@ -2,6 +2,7 @@ package org.example.dao;
 
 import lombok.RequiredArgsConstructor;
 import org.example.domain.User;
+import org.example.exceptions.UserNotFoundException;
 import org.example.utils.Props;
 
 import java.sql.*;
@@ -31,6 +32,6 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        throw new RuntimeException("User not found");
+        throw new UserNotFoundException("User not found");
     }
 }
