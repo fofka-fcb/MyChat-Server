@@ -23,7 +23,8 @@ public class ClientRunnable implements Runnable, Observer {
         BufferedReader readerFromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
         while (true) {
-            if (authorization(readerFromClient)) {
+            if (authorization(readerFromClient) == true) {
+                notifyMe("Authorization accept");
                 services.addObserver(this);
                 String messageFromClient;
                 while ((messageFromClient = readerFromClient.readLine()) != null) {
@@ -31,6 +32,8 @@ public class ClientRunnable implements Runnable, Observer {
                     services.notifyObservers(user.getNickname() + ": " + messageFromClient);
                     services.addObserver(this);
                 }
+            } else {
+                notifyMe("Log in again");
             }
         }
     }
@@ -41,9 +44,12 @@ public class ClientRunnable implements Runnable, Observer {
         while ((authorizationMessage = readerFromClient.readLine()) != null) {
             if (authorizationMessage.startsWith("!auto!")) {
                 String nickname = authorizationMessage.substring(6);
-                //user = new User(nickname); // Создание юзера и присваивание ему никнейма
-                user = userDao.findByNickname(nickname); // Создание юзера после проверки существования его в базе данных
-                return true;
+                if (userDao.findByNickname(nickname) == true) {
+                    user = new User(nickname);
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
         return false;
