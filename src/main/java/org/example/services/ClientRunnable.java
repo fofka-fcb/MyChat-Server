@@ -7,6 +7,7 @@ import org.example.domain.User;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Scanner;
 
 @RequiredArgsConstructor
 public class ClientRunnable implements Runnable, Observer {
@@ -22,44 +23,79 @@ public class ClientRunnable implements Runnable, Observer {
 
         BufferedReader readerFromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
+        // Логика для авторизации
+//        while (true) {
+//            if (authorization(readerFromClient) == true) {
+//                notifyMe("Authorization accept");
+//                services.addObserver(this);
+//                String messageFromClient;
+//                while ((messageFromClient = readerFromClient.readLine()) != null) {
+//                    services.removeObserver(this);
+//                    services.notifyObservers(user.getNickname() + ": " + messageFromClient);
+//                    services.addObserver(this);
+//                }
+//            } else {
+//                notifyMe("Log in again");
+//            }
+//        }
+
+
+        // Логика для регистрации
         while (true) {
-            if (authorization(readerFromClient) == true) {
-                notifyMe("Authorization accept");
+            if (registration(readerFromClient) == true){
+                notifyMe("Registration accept");
                 services.addObserver(this);
                 String messageFromClient;
-                while ((messageFromClient = readerFromClient.readLine()) != null) {
+                while ((messageFromClient = readerFromClient.readLine()) != null){
                     services.removeObserver(this);
                     services.notifyObservers(user.getNickname() + ": " + messageFromClient);
                     services.addObserver(this);
                 }
             } else {
-                notifyMe("Log in again");
+                notifyMe("Reg again");
             }
         }
     }
 
-    @SneakyThrows
-    private boolean authorization(BufferedReader readerFromClient) {
-        String authorizationMessage;
-        while ((authorizationMessage = readerFromClient.readLine()) != null) {
-            if (authorizationMessage.startsWith("!auto!")) {
-                String nickname = authorizationMessage.substring(6);
-                if (userDao.findByNickname(nickname) == true) {
-                    user = new User(nickname);
-                    return true;
-                } else {
-                    return false;
+        @SneakyThrows
+        public boolean authorization (BufferedReader readerFromClient){
+            String authorizationMessage;
+            while ((authorizationMessage = readerFromClient.readLine()) != null) {
+                if (authorizationMessage.startsWith("!auto!")) {
+                    String nickname = authorizationMessage.substring(6);
+                    if (userDao.findByNickname(nickname) == true) {
+                        user = new User(nickname);
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
             }
+            return false;
         }
-        return false;
-    }
 
-    @SneakyThrows
-    @Override
-    public void notifyMe(String message) {
-        PrintWriter writerForClient = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())));
-        writerForClient.println(message);
-        writerForClient.flush();
+        @SneakyThrows
+        public boolean registration (BufferedReader readerFromClient){
+            String registrationMessage;
+            while ((registrationMessage = readerFromClient.readLine()) != null) {
+                if (registrationMessage.startsWith("!reg!")) {
+                    String nickname = registrationMessage.substring(5);
+                    if (userDao.regNewNickname(nickname) == true) {
+                        user = new User(nickname);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            return false;
+        }
+
+        @SneakyThrows
+        @Override
+        public void notifyMe (String message){
+            PrintWriter writerForClient = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())));
+            writerForClient.println(message);
+            writerForClient.flush();
+        }
     }
-}

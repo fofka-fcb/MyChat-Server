@@ -1,5 +1,6 @@
 package org.example.services;
 
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.example.dao.UserDao;
 import org.example.dao.UserDaoImpl;
@@ -9,7 +10,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
+@RequiredArgsConstructor
 public class ServicesOfServerImpl implements ServicesOfServer {
     public static int PORT = 4444;
     public final List<Observer> clients = new LinkedList<>();
