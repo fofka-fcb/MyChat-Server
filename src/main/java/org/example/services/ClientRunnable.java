@@ -39,63 +39,84 @@ public class ClientRunnable implements Runnable, Observer {
 //            }
 //        }
 
-
         // Логика для регистрации
+//        while (true) {
+//            if (registration(readerFromClient) == true){
+//                notifyMe("Registration accept");
+//                services.addObserver(this);
+//                String messageFromClient;
+//                while ((messageFromClient = readerFromClient.readLine()) != null){
+//                    services.removeObserver(this);
+//                    services.notifyObservers(user.getNickname() + ": " + messageFromClient);
+//                    services.addObserver(this);
+//                }
+//            } else {
+//                notifyMe("Reg again");
+//            }
+//        }
+
+        // Логика полноценной авторизации/регистрации
         while (true) {
-            if (registration(readerFromClient) == true){
-                notifyMe("Registration accept");
-                services.addObserver(this);
-                String messageFromClient;
-                while ((messageFromClient = readerFromClient.readLine()) != null){
-                    services.removeObserver(this);
-                    services.notifyObservers(user.getNickname() + ": " + messageFromClient);
-                    services.addObserver(this);
+            String menuNum = readerFromClient.readLine();
+            if (menuNum.startsWith("1")) {
+
+                notifyMe("!autho!");
+
+                while (true) {
+                    if (authorization(readerFromClient) == true) {
+                        notifyMe("Authorization accepted");
+                        services.addObserver(this);
+                        break;
+                    } else {
+                        notifyMe("Log in again");
+                    }
                 }
-            } else {
-                notifyMe("Reg again");
+
+            } else if (menuNum.startsWith("2")) {
+                notifyMe("!reg!");
             }
         }
     }
 
-        @SneakyThrows
-        public boolean authorization (BufferedReader readerFromClient){
-            String authorizationMessage;
-            while ((authorizationMessage = readerFromClient.readLine()) != null) {
-                if (authorizationMessage.startsWith("!auto!")) {
-                    String nickname = authorizationMessage.substring(6);
-                    if (userDao.findByNickname(nickname) == true) {
-                        user = new User(nickname);
-                        return true;
-                    } else {
-                        return false;
-                    }
+    @SneakyThrows
+    public boolean authorization(BufferedReader readerFromClient) {
+        String authorizationMessage;
+        while ((authorizationMessage = readerFromClient.readLine()) != null) {
+            if (authorizationMessage.startsWith("!auto!")) {
+                String nickname = authorizationMessage.substring(6);
+                if (userDao.findByNickname(nickname) == true) {
+                    user = new User(nickname);
+                    return true;
+                } else {
+                    return false;
                 }
             }
-            return false;
         }
-
-        @SneakyThrows
-        public boolean registration (BufferedReader readerFromClient){
-            String registrationMessage;
-            while ((registrationMessage = readerFromClient.readLine()) != null) {
-                if (registrationMessage.startsWith("!reg!")) {
-                    String nickname = registrationMessage.substring(5);
-                    if (userDao.regNewNickname(nickname) == true) {
-                        user = new User(nickname);
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            }
-            return false;
-        }
-
-        @SneakyThrows
-        @Override
-        public void notifyMe (String message){
-            PrintWriter writerForClient = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())));
-            writerForClient.println(message);
-            writerForClient.flush();
-        }
+        return false;
     }
+
+    @SneakyThrows
+    public boolean registration(BufferedReader readerFromClient) {
+        String registrationMessage;
+        while ((registrationMessage = readerFromClient.readLine()) != null) {
+            if (registrationMessage.startsWith("!reg!")) {
+                String nickname = registrationMessage.substring(5);
+                if (userDao.regNewNickname(nickname) == true) {
+                    user = new User(nickname);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
+    @SneakyThrows
+    @Override
+    public void notifyMe(String message) {
+        PrintWriter writerForClient = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())));
+        writerForClient.println(message);
+        writerForClient.flush();
+    }
+}
