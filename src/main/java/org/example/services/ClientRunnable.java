@@ -57,17 +57,15 @@ public class ClientRunnable implements Runnable, Observer {
 
         // Логика полноценной авторизации/регистрации
         while (true) {
-            boolean message = false;
+            boolean chat = false;
             String menuNum = readerFromClient.readLine();
             if (menuNum.startsWith("1")) {
-
                 notifyMe("!autho!");
-
                 while (true) {
                     if (authorization(readerFromClient) == true) {
                         notifyMe("Authorization accepted");
                         services.addObserver(this);
-                        message = true;
+                        chat = true;
                         break;
                     } else {
                         notifyMe("Log in again");
@@ -75,8 +73,18 @@ public class ClientRunnable implements Runnable, Observer {
                 }
             } else if (menuNum.startsWith("2")) {
                 notifyMe("!reg!");
+                while (true) {
+                    if (registration(readerFromClient) == true) {
+                        notifyMe("Registration accepted");
+                        services.addObserver(this);
+                        chat = true;
+                        break;
+                    } else {
+                        notifyMe("Reg is not accepted");
+                    }
+                }
             }
-            if (message == true){
+            if (chat == true){
                 notifyMe("!chat!");
                 String messageFromClient;
                 while ((messageFromClient = readerFromClient.readLine()) != null){
