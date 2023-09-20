@@ -25,7 +25,7 @@ public class MenuServicesImpl implements MenuServices {
             if (menuNum.startsWith("1")) {
                 client.notifyMe("!autho!");
                 while (true) {
-                    if (client.authorization(readerFromClient) == true) {
+                    if (client.authorization(readerFromClient)) {
                         client.notifyMe("Authorization accepted");
                         services.addObserver(client);
                         chat = true;
@@ -37,7 +37,7 @@ public class MenuServicesImpl implements MenuServices {
             } else if (menuNum.startsWith("2")) {
                 client.notifyMe("!reg!");
                 while (true) {
-                    if (client.registration(readerFromClient) == true) {
+                    if (client.registration(readerFromClient)) {
                         client.notifyMe("Registration accepted");
                         services.addObserver(client);
                         chat = true;
@@ -47,7 +47,7 @@ public class MenuServicesImpl implements MenuServices {
                     }
                 }
             }
-            if (chat == true) {
+            if (chat) {
                 client.notifyMe("!chat!");
                 String messageFromClient;
                 while ((messageFromClient = readerFromClient.readLine()) != null) {
