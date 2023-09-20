@@ -3,16 +3,13 @@ package org.example.services;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.example.dao.UserDao;
-import org.example.domain.User;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 
 @RequiredArgsConstructor
-public class ClientRunnable implements Runnable, Observer {
+public class ClientRunnable implements Runnable {
     private final Socket socket;
-    private User user;
     private final ServicesOfServerImpl services;
     private final UserDao userDao;
 
@@ -23,118 +20,46 @@ public class ClientRunnable implements Runnable, Observer {
 
         BufferedReader readerFromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-        // Логика для авторизации
-//        while (true) {
-//            if (authorization(readerFromClient) == true) {
-//                notifyMe("Authorization accept");
-//                services.addObserver(this);
-//                String messageFromClient;
-//                while ((messageFromClient = readerFromClient.readLine()) != null) {
-//                    services.removeObserver(this);
-//                    services.notifyObservers(user.getNickname() + ": " + messageFromClient);
-//                    services.addObserver(this);
-//                }
-//            } else {
-//                notifyMe("Log in again");
-//            }
-//        }
+        ClientServicesImpl client = new ClientServicesImpl(userDao, socket);
 
-        // Логика для регистрации
-//        while (true) {
-//            if (registration(readerFromClient) == true){
-//                notifyMe("Registration accept");
-//                services.addObserver(this);
-//                String messageFromClient;
-//                while ((messageFromClient = readerFromClient.readLine()) != null){
-//                    services.removeObserver(this);
-//                    services.notifyObservers(user.getNickname() + ": " + messageFromClient);
-//                    services.addObserver(this);
-//                }
-//            } else {
-//                notifyMe("Reg again");
-//            }
-//        }
-
-        // Логика полноценной авторизации/регистрации
+        //Логика полноценной авторизации/регистрации
         while (true) {
             boolean chat = false;
             String menuNum = readerFromClient.readLine();
             if (menuNum.startsWith("1")) {
-                notifyMe("!autho!");
+                client.notifyMe("!autho!");
                 while (true) {
-                    if (authorization(readerFromClient) == true) {
-                        notifyMe("Authorization accepted");
-                        services.addObserver(this);
+                    if (client.authorization(readerFromClient) == true) {
+                        client.notifyMe("Authorization accepted");
+                        services.addObserver(client);
                         chat = true;
                         break;
                     } else {
-                        notifyMe("Log in again");
+                        client.notifyMe("Log in again");
                     }
                 }
             } else if (menuNum.startsWith("2")) {
-                notifyMe("!reg!");
+                client.notifyMe("!reg!");
                 while (true) {
-                    if (registration(readerFromClient) == true) {
-                        notifyMe("Registration accepted");
-                        services.addObserver(this);
+                    if (client.registration(readerFromClient) == true) {
+                        client.notifyMe("Registration accepted");
+                        services.addObserver(client);
                         chat = true;
                         break;
                     } else {
-                        notifyMe("Reg is not accepted");
+                        client.notifyMe("Reg is not accepted");
                     }
                 }
             }
-            if (chat == true){
-                notifyMe("!chat!");
+            if (chat == true) {
+                client.notifyMe("!chat!");
                 String messageFromClient;
-                while ((messageFromClient = readerFromClient.readLine()) != null){
-                    services.removeObserver(this);
-                    services.notifyObservers(user.getNickname() + ": " + messageFromClient);
-                    services.addObserver(this);
+                while ((messageFromClient = readerFromClient.readLine()) != null) {
+                    services.removeObserver(client);
+                    services.notifyObservers(client.user.getNickname() + ": " + messageFromClient);
+                    services.addObserver(client);
                 }
             }
         }
-    }
-
-    @SneakyThrows
-    public boolean authorization(BufferedReader readerFromClient) {
-        String authorizationMessage;
-        while ((authorizationMessage = readerFromClient.readLine()) != null) {
-            if (authorizationMessage.startsWith("!auto!")) {
-                String nickname = authorizationMessage.substring(6);
-                if (userDao.findByNickname(nickname) == true) {
-                    user = new User(nickname);
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        }
-        return false;
-    }
-
-    @SneakyThrows
-    public boolean registration(BufferedReader readerFromClient) {
-        String registrationMessage;
-        while ((registrationMessage = readerFromClient.readLine()) != null) {
-            if (registrationMessage.startsWith("!reg!")) {
-                String nickname = registrationMessage.substring(5);
-                if (userDao.regNewNickname(nickname) == true) {
-                    user = new User(nickname);
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        }
-        return false;
-    }
-
-    @SneakyThrows
-    @Override
-    public void notifyMe(String message) {
-        PrintWriter writerForClient = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())));
-        writerForClient.println(message);
-        writerForClient.flush();
     }
 }
