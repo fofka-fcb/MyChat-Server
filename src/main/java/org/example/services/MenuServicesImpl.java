@@ -43,10 +43,11 @@ public class MenuServicesImpl implements MenuServices {
                         chat = true;
                         break;
                     } else {
-                        client.notifyMe("Reg is not accepted");
+                        client.notifyMe("Reg again");
                     }
                 }
             }
+
             if (chat) {
                 client.notifyMe("!chat!");
                 String messageFromClient;
