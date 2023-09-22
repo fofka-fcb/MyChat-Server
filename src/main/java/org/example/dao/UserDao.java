@@ -1,7 +1,9 @@
 package org.example.dao;
 
+import org.example.domain.User;
+
 public interface UserDao {
-    boolean findByNickname(String nickname);
+    User findUser(String login, String password);
 
     boolean regNewNickname(String name);
 }

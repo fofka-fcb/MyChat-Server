@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.example.dao.UserDao;
 import org.example.domain.User;
+import org.example.exceptions.UserNotFoundException;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -20,19 +21,23 @@ public class ClientServicesImpl implements ClientServices, Observer {
     @Override
     @SneakyThrows
     public boolean authorization(BufferedReader readerFromClient) {
-        String authorizationMessage;
-        while ((authorizationMessage = readerFromClient.readLine()) != null) {
-            if (authorizationMessage.startsWith("!auto!")) {
-                String nickname = authorizationMessage.substring(6);
-                if (userDao.findByNickname(nickname) == true) {
-                    user = new User(nickname);
-                    return true;
-                } else {
-                    return false;
+        while (true) {
+            String login = readerFromClient.readLine();
+            if (login.startsWith("!log!")) {
+                login = login.substring(5);
+                String password = readerFromClient.readLine();
+                if (password.startsWith("!pas!")) {
+                    password = password.substring(5);
+                    try {
+                        user = userDao.findUser(login, password);
+                        return true;
+                    } catch (UserNotFoundException exception){
+                        System.out.println("User not found");
+                        return false;
+                    }
                 }
             }
         }
-        return false;
     }
 
     @Override

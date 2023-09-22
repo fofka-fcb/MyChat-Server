@@ -1,6 +1,8 @@
 package org.example.dao;
 
 import lombok.RequiredArgsConstructor;
+import org.example.domain.User;
+import org.example.exceptions.UserNotFoundException;
 import org.example.utils.Props;
 
 import java.sql.*;
@@ -11,26 +13,21 @@ public class UserDaoImpl implements UserDao {
     private final Props props;
 
     @Override
-    public boolean findByNickname(String nickname) {
+    public User findUser(String login, String password) {
         try (Connection connection = DriverManager.getConnection(
                 props.getValue("db.url"),
                 props.getValue("db.login"),
-                props.getValue("db.password"));
-             PreparedStatement preparedStatement = connection.prepareStatement("select count(*) cnt from server_schema.usersofchat " +
-                     "where nickname = '" + nickname + "'")) {
-            ResultSet resultSet = preparedStatement.executeQuery();
+                props.getValue("db.password")))
+        {
+            PreparedStatement findNickname = connection.prepareStatement("select nickname from usersofchat " +
+                    "where login = '" + login + "'" + "and password = '" + password + "'");
+            ResultSet resultSet = findNickname.executeQuery();
             resultSet.next();
-
-            int userCount = resultSet.getInt("cnt");
-
-            if (userCount == 1) {
-                return true;
-            }
+            String nickname = resultSet.getString("nickname");
+            return new User(nickname);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new UserNotFoundException("User not found");
         }
-//        throw new UserNotFoundException("User not found");
-        return false;
     }
 
     @Override
