@@ -19,7 +19,12 @@ public class ClientRunnable implements Runnable {
 
         ClientServicesImpl client = new ClientServicesImpl(userDao, socket);
 
-        MenuServices menuServices = new MenuServicesImpl(services, client, socket);
-        menuServices.menu();
+        while (true) {
+            MenuServices menuServices = new MenuServicesImpl(services, client, socket);
+            menuServices.menu();
+
+            ChatServices chatServices = new ChatServicesImpl(services, client, socket);
+            chatServices.chat();
+        }
     }
 }

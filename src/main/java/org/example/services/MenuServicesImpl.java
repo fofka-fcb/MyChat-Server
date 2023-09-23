@@ -46,16 +46,11 @@ public class MenuServicesImpl implements MenuServices {
                         client.notifyMe("Reg again");
                     }
                 }
+            } else {
+                client.notifyMe("Try again");
             }
-
-            if (chat) {
-                client.notifyMe("!chat!");
-                String messageFromClient;
-                while ((messageFromClient = readerFromClient.readLine()) != null) {
-                    services.removeObserver(client);
-                    services.notifyObservers(client.user.getNickname() + ": " + messageFromClient);
-                    services.addObserver(client);
-                }
+            if (chat){
+                break;
             }
         }
     }
