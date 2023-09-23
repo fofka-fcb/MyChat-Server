@@ -24,22 +24,17 @@ public class ClientServicesImpl implements ClientServices, Observer {
     public boolean authorization(BufferedReader readerFromClient) {
         while (true) {
             String login = readerFromClient.readLine();
-            if (login.startsWith("!log!")) {
-                login = login.substring(5);
-                String password = readerFromClient.readLine();
-                if (password.startsWith("!pas!")) {
-                    password = password.substring(5);
-                    try {
-                        user = userDao.findUser(login, password);
-                        return true;
-                    } catch (UserNotFoundException exception) {
-                        System.out.println("User not found");
-                        return false;
-                    }
-                }
+            String password = readerFromClient.readLine();
+            try {
+                user = userDao.findUser(login, password);
+                return true;
+            } catch (UserNotFoundException exception) {
+                System.out.println("User not found");
+                return false;
             }
         }
     }
+
 
     @Override
     @SneakyThrows
