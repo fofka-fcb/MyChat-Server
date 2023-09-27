@@ -67,7 +67,16 @@ public class ClientServicesImpl implements ClientServices, Observer {
 
     @Override
     @SneakyThrows
-    public void notifyMe(String message) {
+    public void notifyUsers(String nickname, String message) {
+        if (!nickname.equals(user.getNickname())) {
+            PrintWriter writerForClient = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())));
+            writerForClient.println(nickname + ": " + message);
+            writerForClient.flush();
+        }
+    }
+
+    @SneakyThrows
+    public void notifyMe(String message){
         PrintWriter writerForClient = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())));
         writerForClient.println(message);
         writerForClient.flush();

@@ -43,9 +43,9 @@ public class ServicesOfServerImpl implements ServicesOfServer {
     }
 
     @Override
-    public void notifyObservers(String message) {
+    public void notifyObservers(String nickname, String message) {
         for (Observer observerInList : clients) {
-            observerInList.notifyMe(message);
+            observerInList.notifyUsers(nickname, message);
         }
     }
 }
