@@ -22,6 +22,11 @@ public class ChatServicesImpl implements ChatServices {
         client.notifyMe("!chat!");
         String messageFromClient;
         while ((messageFromClient = readerFromClient.readLine()) != null) {
+            if (messageFromClient.startsWith("!Exit")) {
+                client.notifyMe("!Exit");
+                services.removeObserver(client);
+                break;
+            }
             services.removeObserver(client);
             services.notifyObservers(client.user.getNickname() + ": " + messageFromClient);
             services.addObserver(client);
