@@ -15,8 +15,6 @@ public class ClientRunnable implements Runnable {
     @SneakyThrows
     @Override
     public void run() {
-        System.out.println("new connection accepted");
-
         ClientServicesImpl client = new ClientServicesImpl(userDao, socket);
 
         while (true) {

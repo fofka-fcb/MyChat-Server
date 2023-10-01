@@ -2,10 +2,13 @@ package org.example.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.example.Application;
 import org.example.dao.UserDao;
 import org.example.domain.User;
 import org.example.exceptions.UserNotCreatedException;
 import org.example.exceptions.UserNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,6 +21,7 @@ public class ClientServicesImpl implements ClientServices, Observer {
     private final UserDao userDao;
     private final Socket socket;
     protected User user;
+    public static final Logger log = LoggerFactory.getLogger(ClientServicesImpl.class.getSimpleName());
 
     @Override
     @SneakyThrows
@@ -29,7 +33,7 @@ public class ClientServicesImpl implements ClientServices, Observer {
                 user = userDao.findUser(login, password);
                 return true;
             } catch (UserNotFoundException exception) {
-                System.out.println("User not found");
+                log.error("Login = {} and password = {} not found, port = {}", login, password, socket.getPort());
                 return false;
             }
         }
@@ -52,7 +56,7 @@ public class ClientServicesImpl implements ClientServices, Observer {
                             user = userDao.regNewNickname(login, password, nickname);
                             return true;
                         } catch (UserNotCreatedException exception) {
-                            System.out.println("User not created");
+                            log.error("New user not created, port = {}", socket.getPort());
                             return false;
                         }
                     } else {

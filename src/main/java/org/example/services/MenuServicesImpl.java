@@ -2,6 +2,9 @@ package org.example.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.example.Application;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -12,6 +15,7 @@ public class MenuServicesImpl implements MenuServices {
     private final ServicesOfServerImpl services;
     private final ClientServicesImpl client;
     private final Socket socket;
+    public static final Logger log = LoggerFactory.getLogger(MenuServicesImpl.class.getSimpleName());
 
     @SneakyThrows
     @Override
@@ -28,6 +32,7 @@ public class MenuServicesImpl implements MenuServices {
                     if (client.authorization(readerFromClient)) {
                         client.notifyMe("Authorization accepted");
                         services.addObserver(client);
+                        log.info("User '" + client.user.getNickname() + "' has authorization");
                         chat = true;
                         break;
                     } else {
@@ -40,6 +45,7 @@ public class MenuServicesImpl implements MenuServices {
                     if (client.registration(readerFromClient)) {
                         client.notifyMe("Registration accepted");
                         services.addObserver(client);
+                        log.info("User '" + client.user.getNickname() + "' has registration");
                         chat = true;
                         break;
                     } else {
@@ -49,7 +55,7 @@ public class MenuServicesImpl implements MenuServices {
             } else {
                 client.notifyMe("Try again");
             }
-            if (chat){
+            if (chat) {
                 break;
             }
         }
