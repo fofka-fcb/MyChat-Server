@@ -1,0 +1,4 @@
+[ INFO ] - ServicesOfServerImpl:27 - Server has started, time = 2023-10-01T21:35:25.890614600
+[ INFO ] - ServicesOfServerImpl:27 - Server has started, time = 2023-10-01T21:35:58.996564100
+[ INFO ] - ServicesOfServerImpl:32 - New user connected, time = 2023-10-01T21:36:02.255127700, port = 61143
+[ INFO ] - MenuServicesImpl:33 - User 'Stepan' has authorization

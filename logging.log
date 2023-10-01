@@ -1,7 +1,0 @@
-[ INFO ] - ServicesOfServerImpl:27 - Server has started, time = 2023-10-01T21:27:34.399392600
-[ INFO ] - ServicesOfServerImpl:27 - Server has started, time = 2023-10-01T21:28:17.681187200
-[ INFO ] - ServicesOfServerImpl:32 - New user connected, time = 2023-10-01T21:28:24.306513600, port = 60734
-[ INFO ] - MenuServicesImpl:33 - User 'Stepan' has authorization
-[ INFO ] - ServicesOfServerImpl:32 - New user connected, time = 2023-10-01T21:28:34.470499200, port = 60748
-[ ERROR] - ClientServicesImpl:34 - Login = 123 and password = 123 not found, port = 60748
-[ INFO ] - MenuServicesImpl:33 - User 'Roman' has authorization
