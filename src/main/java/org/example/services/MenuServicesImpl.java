@@ -18,7 +18,6 @@ public class MenuServicesImpl implements MenuServices {
     @SneakyThrows
     @Override
     public void menu() {
-
         BufferedReader readerFromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
         while (true) {

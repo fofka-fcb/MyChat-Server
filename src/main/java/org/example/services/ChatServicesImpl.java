@@ -2,6 +2,7 @@ package org.example.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.example.domain.Message;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -12,11 +13,11 @@ public class ChatServicesImpl implements ChatServices {
     private final ServicesOfServerImpl services;
     private final ClientServicesImpl client;
     private final Socket socket;
+    private Message message;
 
     @Override
     @SneakyThrows
     public void chat() {
-
         BufferedReader readerFromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
         client.notifyMe("!chat!");
@@ -27,7 +28,8 @@ public class ChatServicesImpl implements ChatServices {
                 services.removeObserver(client);
                 break;
             }
-            services.notifyObservers(client.user.getNickname(), messageFromClient);
+            message = new Message(client.user.getNickname(), messageFromClient);
+            services.notifyObservers(message.getFrom(), message.getTo_text());
         }
     }
 }
