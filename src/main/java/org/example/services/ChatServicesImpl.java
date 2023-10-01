@@ -2,7 +2,9 @@ package org.example.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.example.dao.MessageDao;
 import org.example.domain.Message;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.Socket;
@@ -12,6 +14,7 @@ public class ChatServicesImpl implements ChatServices {
     private final ServicesOfServerImpl services;
     private final ClientServicesImpl client;
     private final Socket socket;
+    private final MessageDao messageDao;
 
     @Override
     @SneakyThrows
@@ -29,6 +32,9 @@ public class ChatServicesImpl implements ChatServices {
             }
             message.setFrom(client.user.getNickname());
             message.setTo_text(messageFromClient);
+
+            messageDao.recordMessage(message.getFrom(), message.getTo_text());
+
             services.notifyObservers(message.getFrom(), message.getTo_text());
         }
     }
