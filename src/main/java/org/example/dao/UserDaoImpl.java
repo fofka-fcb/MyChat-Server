@@ -5,7 +5,6 @@ import org.example.domain.User;
 import org.example.exceptions.UserNotCreatedException;
 import org.example.exceptions.UserNotFoundException;
 import org.example.utils.Props;
-
 import java.sql.*;
 
 @RequiredArgsConstructor

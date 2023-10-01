@@ -27,9 +27,7 @@ public class ChatServicesImpl implements ChatServices {
                 services.removeObserver(client);
                 break;
             }
-            services.removeObserver(client);
             services.notifyObservers(client.user.getNickname(), messageFromClient);
-            services.addObserver(client);
         }
     }
 }

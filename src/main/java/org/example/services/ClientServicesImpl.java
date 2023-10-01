@@ -2,14 +2,12 @@ package org.example.services;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.example.Application;
 import org.example.dao.UserDao;
 import org.example.domain.User;
 import org.example.exceptions.UserNotCreatedException;
 import org.example.exceptions.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
