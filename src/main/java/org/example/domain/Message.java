@@ -6,6 +6,6 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class Message {
-    private final String from;
-    private final String to_text;
+    protected String from;
+    protected String to_text;
 }

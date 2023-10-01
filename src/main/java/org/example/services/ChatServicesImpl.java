@@ -13,7 +13,7 @@ public class ChatServicesImpl implements ChatServices {
     private final ServicesOfServerImpl services;
     private final ClientServicesImpl client;
     private final Socket socket;
-    private Message message;
+    private final Message message;
 
     @Override
     @SneakyThrows
@@ -28,7 +28,8 @@ public class ChatServicesImpl implements ChatServices {
                 services.removeObserver(client);
                 break;
             }
-            message = new Message(client.user.getNickname(), messageFromClient);
+            message.setFrom(client.user.getNickname());
+            message.setTo_text(messageFromClient);
             services.notifyObservers(message.getFrom(), message.getTo_text());
         }
     }
