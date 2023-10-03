@@ -3,7 +3,9 @@ package org.example.services;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.example.dao.MessageDao;
+import org.example.dao.MessageDaoImpl;
 import org.example.dao.UserDao;
+import org.example.utils.Props;
 
 import java.net.Socket;
 
@@ -12,12 +14,13 @@ public class ClientRunnable implements Runnable {
     private final Socket socket;
     private final ServicesOfServerImpl services;
     private final UserDao userDao;
-    private final MessageDao messageDao;
 
     @SneakyThrows
     @Override
     public void run() {
         ClientServicesImpl client = new ClientServicesImpl(userDao, socket);
+
+        MessageDao messageDao = new MessageDaoImpl(new Props(), client);
 
         while (true) {
             MenuServices menuServices = new MenuServicesImpl(services, client, socket);

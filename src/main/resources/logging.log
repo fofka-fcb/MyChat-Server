@@ -2,3 +2,68 @@
 [ INFO ] - ServicesOfServerImpl:27 - Server has started, time = 2023-10-01T21:35:58.996564100
 [ INFO ] - ServicesOfServerImpl:32 - New user connected, time = 2023-10-01T21:36:02.255127700, port = 61143
 [ INFO ] - MenuServicesImpl:33 - User 'Stepan' has authorization
+[ INFO ] - ServicesOfServerImpl:27 - Server has started, time = 2023-10-01T23:19:06.429451800
+[ INFO ] - ServicesOfServerImpl:32 - New user connected, time = 2023-10-01T23:19:11.129843200, port = 50603
+[ INFO ] - MenuServicesImpl:33 - User 'Stepan' has authorization
+[ INFO ] - ServicesOfServerImpl:32 - New user connected, time = 2023-10-01T23:19:26.263353100, port = 50617
+[ INFO ] - MenuServicesImpl:33 - User 'Roman' has authorization
+[ INFO ] - ServicesOfServerImpl:27 - Server has started, time = 2023-10-01T23:24:59.694229400
+[ INFO ] - ServicesOfServerImpl:27 - Server has started, time = 2023-10-01T23:25:25.648818900
+[ INFO ] - ServicesOfServerImpl:32 - New user connected, time = 2023-10-01T23:25:30.537344100, port = 50886
+[ INFO ] - MenuServicesImpl:32 - User 'Roman' has authorization
+[ INFO ] - ServicesOfServerImpl:32 - New user connected, time = 2023-10-01T23:25:40.266159800, port = 50895
+[ INFO ] - MenuServicesImpl:32 - User 'Stepan' has authorization
+[ INFO ] - ServicesOfServerImpl:27 - Server has started, time = 2023-10-01T23:29:58.598828100
+[ INFO ] - ServicesOfServerImpl:32 - New user connected, time = 2023-10-01T23:30:13.029308400, port = 51091
+[ INFO ] - MenuServicesImpl:32 - User 'Stepan' has authorization
+[ INFO ] - ServicesOfServerImpl:32 - New user connected, time = 2023-10-01T23:30:22.918639400, port = 51106
+[ INFO ] - MenuServicesImpl:32 - User 'Roman' has authorization
+[ INFO ] - ServicesOfServerImpl:27 - Server has started, time = 2023-10-01T23:38:07.500269800
+[ INFO ] - ServicesOfServerImpl:32 - New user connected, time = 2023-10-01T23:38:11.415058100, port = 51472
+[ INFO ] - MenuServicesImpl:32 - User 'Roman' has authorization
+[ INFO ] - ServicesOfServerImpl:32 - New user connected, time = 2023-10-01T23:38:20.835765, port = 51479
+[ INFO ] - MenuServicesImpl:32 - User 'Stepan' has authorization
+[ INFO ] - ServicesOfServerImpl:30 - Server has started, time = 2023-10-02T01:15:47.300016400
+[ INFO ] - ServicesOfServerImpl:35 - New user connected, time = 2023-10-02T01:15:54.565947, port = 55718
+[ INFO ] - MenuServicesImpl:32 - User 'Stepan' has authorization
+[ INFO ] - ServicesOfServerImpl:35 - New user connected, time = 2023-10-02T01:16:16.860393500, port = 55738
+[ INFO ] - MenuServicesImpl:32 - User 'Roman' has authorization
+[ INFO ] - MenuServicesImpl:32 - User 'Dasha' has authorization
+[ INFO ] - ServicesOfServerImpl:31 - Server has started, time = 2023-10-03T20:53:52.797925600
+[ INFO ] - ServicesOfServerImpl:36 - New user connected, time = 2023-10-03T20:53:58.841548800, port = 56730
+[ INFO ] - MenuServicesImpl:33 - User 'qwe' has authorization
+[ INFO ] - ServicesOfServerImpl:31 - Server has started, time = 2023-10-03T20:58:51.419687
+[ INFO ] - ServicesOfServerImpl:36 - New user connected, time = 2023-10-03T20:58:55.184317700, port = 56848
+[ INFO ] - ServicesOfServerImpl:36 - New user connected, time = 2023-10-03T20:59:00.268691900, port = 56852
+[ ERROR] - ClientServicesImpl:34 - Login = 1 and password = qwe not found, port = 56852
+[ INFO ] - MenuServicesImpl:33 - User 'qwe' has authorization
+[ INFO ] - ServicesOfServerImpl:31 - Server has started, time = 2023-10-03T21:01:38.372606800
+[ INFO ] - ServicesOfServerImpl:36 - New user connected, time = 2023-10-03T21:01:42.670411900, port = 56955
+[ INFO ] - MenuServicesImpl:33 - User 'Stepan' has authorization
+[ INFO ] - ServicesOfServerImpl:31 - Server has started, time = 2023-10-03T21:02:13.694539600
+[ INFO ] - ServicesOfServerImpl:36 - New user connected, time = 2023-10-03T21:02:18.708352500, port = 56976
+[ INFO ] - MenuServicesImpl:33 - User 'Stepan' has authorization
+[ INFO ] - ServicesOfServerImpl:30 - Server has started, time = 2023-10-03T22:00:06.454028200
+[ INFO ] - ServicesOfServerImpl:35 - New user connected, time = 2023-10-03T22:00:12.798818100, port = 58344
+[ INFO ] - MenuServicesImpl:33 - User 'Stepan' has authorization
+[ INFO ] - ServicesOfServerImpl:30 - Server has started, time = 2023-10-03T22:06:50.971957300
+[ INFO ] - ServicesOfServerImpl:35 - New user connected, time = 2023-10-03T22:06:55.633495900, port = 58532
+[ INFO ] - MenuServicesImpl:33 - User 'Stepan' has authorization
+[ INFO ] - ServicesOfServerImpl:30 - Server has started, time = 2023-10-03T22:10:13.277331500
+[ INFO ] - ServicesOfServerImpl:35 - New user connected, time = 2023-10-03T22:10:17.119001600, port = 58638
+[ INFO ] - MenuServicesImpl:33 - User 'Stepan' has authorization
+[ INFO ] - ServicesOfServerImpl:30 - Server has started, time = 2023-10-03T22:10:44.684234700
+[ INFO ] - ServicesOfServerImpl:35 - New user connected, time = 2023-10-03T22:10:48.190698200, port = 58656
+[ INFO ] - MenuServicesImpl:33 - User 'Stepan' has authorization
+[ INFO ] - ServicesOfServerImpl:30 - Server has started, time = 2023-10-03T22:12:52.888999800
+[ INFO ] - ServicesOfServerImpl:35 - New user connected, time = 2023-10-03T22:12:59.380506, port = 58714
+[ INFO ] - MenuServicesImpl:33 - User 'Stepan' has authorization
+[ INFO ] - ServicesOfServerImpl:30 - Server has started, time = 2023-10-03T22:14:20.781691800
+[ INFO ] - ServicesOfServerImpl:35 - New user connected, time = 2023-10-03T22:14:25.772462100, port = 58755
+[ INFO ] - ServicesOfServerImpl:35 - New user connected, time = 2023-10-03T22:14:33.776817200, port = 58768
+[ INFO ] - MenuServicesImpl:33 - User 'Stepan' has authorization
+[ INFO ] - ServicesOfServerImpl:35 - New user connected, time = 2023-10-03T22:15:29.386040200, port = 58801
+[ INFO ] - MenuServicesImpl:33 - User 'Roman' has authorization
+[ INFO ] - ServicesOfServerImpl:28 - Server has started, time = 2023-10-03T22:17:46.963473300
+[ INFO ] - ServicesOfServerImpl:33 - New user connected, time = 2023-10-03T22:17:50.612594300, port = 58865
+[ INFO ] - MenuServicesImpl:33 - User 'Stepan' has authorization

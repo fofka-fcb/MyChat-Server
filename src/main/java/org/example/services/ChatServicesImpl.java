@@ -23,8 +23,10 @@ public class ChatServicesImpl implements ChatServices {
         Message message = new Message();
 
         client.notifyMe("!chat!");
+
+        messageDao.notifyMeAboutMessages();
+
         String messageFromClient;
-        client.notifyMe(messageDao.readMessages().toString());
         while ((messageFromClient = readerFromClient.readLine()) != null) {
             if (messageFromClient.startsWith("!Exit")) {
                 client.notifyMe("!Exit");
