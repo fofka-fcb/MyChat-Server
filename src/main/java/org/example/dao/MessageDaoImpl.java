@@ -3,10 +3,7 @@ package org.example.dao;
 import lombok.RequiredArgsConstructor;
 import org.example.utils.Props;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 @RequiredArgsConstructor
 public class MessageDaoImpl implements MessageDao {
@@ -23,6 +20,26 @@ public class MessageDaoImpl implements MessageDao {
             recordStatement.setString(2, nickname);
             recordStatement.setString(3, message);
             recordStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public StringBuilder readMessages() {
+        try (Connection connection = DriverManager.getConnection(
+                props.getValue("db.url"),
+                props.getValue("db.login"),
+                props.getValue("db.password"))) {
+            PreparedStatement readMessage = connection.prepareStatement("SELECT nickname, message FROM messages ORDER BY id DESC LIMIT 1");
+            ResultSet resultSet = readMessage.executeQuery();
+            resultSet.next();
+
+            StringBuilder builder = new StringBuilder();
+            builder.append(resultSet.getString(1));
+            builder.append(": ");
+            builder.append(resultSet.getString(2));
+
+            return builder;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
