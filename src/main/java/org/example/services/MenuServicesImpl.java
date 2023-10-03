@@ -14,7 +14,7 @@ public class MenuServicesImpl implements MenuServices {
     private final ServicesOfServerImpl services;
     private final ClientServicesImpl client;
     private final Socket socket;
-    public static final Logger log = LoggerFactory.getLogger(MenuServicesImpl.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(MenuServicesImpl.class.getSimpleName());
 
     @SneakyThrows
     @Override

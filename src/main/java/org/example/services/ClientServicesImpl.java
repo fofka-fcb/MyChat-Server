@@ -19,7 +19,7 @@ public class ClientServicesImpl implements ClientServices, Observer {
     private final UserDao userDao;
     private final Socket socket;
     protected User user;
-    public static final Logger log = LoggerFactory.getLogger(ClientServicesImpl.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(ClientServicesImpl.class.getSimpleName());
 
     @Override
     @SneakyThrows

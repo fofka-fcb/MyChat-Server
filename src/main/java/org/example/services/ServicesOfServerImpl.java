@@ -19,7 +19,7 @@ public class ServicesOfServerImpl implements ServicesOfServer {
     public static int PORT = 4444;
     public final List<Observer> clients = new LinkedList<>();
     private final UserDao userDao = new UserDaoImpl(new Props());
-    public static final Logger log = LoggerFactory.getLogger(ServicesOfServerImpl.class.getSimpleName());
+    private static final Logger log = LoggerFactory.getLogger(ServicesOfServerImpl.class.getSimpleName());
 
     @SneakyThrows
     @Override
